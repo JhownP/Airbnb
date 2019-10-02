@@ -2,14 +2,16 @@ const express = require('express');
 const mongoose = require('mongoose');
 const routes = require('./routes');
 
-const app = express();
+const server = express();
 
-mongoose.connect('mongodb+srv://omnistack:omnistack@cluster0-u49dg.mongodb.net/omnistack9?retryWrites=true&w=majority', {
+const uri = 'mongodb+srv://omnistack:omnistack@cluster0-u49dg.mongodb.net/omnistack9?w=majority';
+
+mongoose.connect(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true
-});
+}).catch((err) => console.error(err));
 
-app.use(express.json());
-app.use(routes);
+server.use(express.json());
+server.use(routes);
 
-app.listen(3333);
+server.listen(3333);
